@@ -44,8 +44,6 @@ with tf.Session(graph=graph) as session:
     for step in range(num_steps):
         print("STEP",step)
         batch_data,batch_labels = batch_generate.batch_generate(batch_size,num_skips,skip_window)
-        print("Debug_1")
-        print(np.shape(batch_data),np.shape(batch_labels))
         print("batch_data",batch_data[0])
         print("batch_label",batch_labels[0])
         feed_dict = {train_dataset:batch_data,
@@ -54,8 +52,8 @@ with tf.Session(graph=graph) as session:
         print("DEbug_2")
         average_loss += ave_loss
 
-        if step % 100000 == 0 and step >0:
-            print('Average losss at step %d:%f' % (step,average_loss / 100000))
+        if step % 100 == 0 and step >0:
+            print('Average losss at step %d:%f' % (step,average_loss / 100))
             average_loss = 0
     word2vec = normalized_embeddings.eval()
 
