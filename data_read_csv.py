@@ -13,10 +13,10 @@ def prepare_raw_data(input,output):
                 break
             else:
                 if len(line)>=5:
-                    f.write(" ".join(line)+'\n')
+                    f.write(" ".join(line)+' | '+line[0]+'\n')
                     count += 1
 
-    return "Succeed"
+    print( "Succeed")
 
 if __name__ == "__main__":
-    prepare_raw_data(input="./user_click_session.csv",output='./raw_lu_id.csv')
+    prepare_raw_data(input="./user_click_session.csv",output='./data/raw_lu_id_with_ordered_id.csv')
