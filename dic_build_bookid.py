@@ -11,7 +11,7 @@ def dic_build():
     words_2D_list = data_load.load_w2c_textcn_dataset()
     words = []
     for words_1D_list in words_2D_list:
-        words.extend(words_1D_list)
+        words.extend(i  for i in words_1D_list if i !='-1')
     # 注意这里Counter返回的类型
     count.extend(collections.Counter(words).most_common(vocabulary_size - 1))
     dictionary = dict()
@@ -30,7 +30,7 @@ def dic_build():
         data_temp,bookid = words_1D_list[0:-1],words_1D_list[-1]
         min_range = data_index
         for word in data_temp:
-            if word in dictionary:
+            if word in dictionary.keys():
                 index = dictionary[word]
             else:
                 index = 0
