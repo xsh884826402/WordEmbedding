@@ -1,4 +1,3 @@
-import pickle
-with open("./data/data.txt","rb") as f:
-    data = pickle.load(f)
-    print(data[125:128])
+import test
+for i in range(3):
+    test.f()
