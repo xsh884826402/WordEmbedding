@@ -14,7 +14,7 @@ def dic_build():
     dictionary = dict()
 
     for word, _ in count:
-        print(dictionary)
+        # print(dictionary)
         dictionary[word] = len(dictionary)
     # data是label
     data = list()
@@ -30,9 +30,11 @@ def dic_build():
 
     reverse_dictionary = dict(zip(dictionary.values(), dictionary.keys()))
     with open('./data/dict_word_index.txt','wb') as f:
-        pickle.dump(dictionary,f)
-    with open("./data/data.txt","wb") as f:
-        pickle.dump(data,f)
+        pickle.dump(dictionary, f)
+    with open("./data/data.txt", "wb") as f:
+        pickle.dump(data, f)
+    with open("./data/dict_index_word.txt","wb") as f:
+        pickle.dump(reverse_dictionary, f)
 
 if __name__ =="__main__":
     dic_build()

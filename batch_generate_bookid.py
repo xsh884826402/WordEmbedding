@@ -3,6 +3,7 @@ import collections
 import random
 import pickle
 data_index = 0
+bookid_range_index = 0
 with open("./data/data.txt","rb") as f:
     data = pickle.load(f)
     print(type(data),type(data[0]))
@@ -10,6 +11,7 @@ with open("./data/bookid_range.txt","rb") as f:
     bookid_range = pickle.load(f)
 with open("./data/dict_word_index.txt",'rb') as f:
     dic = pickle.load(f)
+
 def batch_generate(batch_size,num_skips,skip_window):
     """
 
@@ -19,6 +21,7 @@ def batch_generate(batch_size,num_skips,skip_window):
     :return: 返回batch 和 labels
     """
     global data_index
+    global bookid_range_index
     print("IN batch_generate",data_index)
     batch = np.ndarray(shape=(batch_size),dtype=np.int64)
     labels = np.ndarray(shape=(batch_size,1),dtype= np.int64)
@@ -36,8 +39,10 @@ def batch_generate(batch_size,num_skips,skip_window):
         buf.append(data[data_index])
         index += 1
         data_index = (data_index + 1)% len(data)
-    bookid,min_index,max_index = bookid_range.pop(0)
+
     for i in range(batch_size// (num_skips+1)):
+
+        bookid, min_index, max_index = bookid_range[bookid_range_index]
         #target label  at the center of the buffer
         print("generate_bookid",i)
         target = skip_window
@@ -50,7 +55,7 @@ def batch_generate(batch_size,num_skips,skip_window):
             labels[i*(num_skips+1) +j,0] = buf[target]
         #print("Embedding",i*(num_skips+1),batch[i*(num_skips+1):i*(num_skips+1)+3])
         batch[i*(num_skips+1) + num_skips] = buf[skip_window]
-        labels[i*(num_skips+1)+num_skips,0] = dic[bookid]
+        labels[i*(num_skips+1)+num_skips,0] = dic[bookid] if bookid in dic.keys() else 0
         #注意跳过未出现过得房源ID
         '''
         while(data[data_index] not in dic.keys()):
@@ -59,6 +64,6 @@ def batch_generate(batch_size,num_skips,skip_window):
         buf.append(data[data_index])
         data_index = (data_index + 1) % len(data)
         if data_index>=max_index:
-            bookid,min_index,max_index = bookid_range.pop(0)
+            bookid_range_index = (bookid_range_index+1) % len(bookid_range)
     return batch,labels
 

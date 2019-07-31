@@ -1,5 +1,5 @@
 import os
-def load_w2c_textcn_dataset(path='./data/raw_lu_id_with_ordered_id.csv'):
+def load_w2c_textcn_dataset(path='./data/raw_lu_id_with_bookid.csv'):
     '''
     :param path:  语料的路径,
     :return: word_list_all: 二维列表
@@ -23,4 +23,4 @@ def load_w2c_textcn_dataset(path='./data/raw_lu_id_with_ordered_id.csv'):
 
 if __name__ =="__main__":
     words = load_w2c_textcn_dataset()
-    print(len(words), type(words), type(words[0]))
+    print(len(words), type(words), type(words[0]),words[0][0],words[0][-1])

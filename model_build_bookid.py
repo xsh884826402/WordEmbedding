@@ -1,10 +1,16 @@
+'''
+本函数进行WordEmbedding的训练
+最开始调用data_read_csv 进行格式规整
+先调用data——load.py 文件，读取法房源ID
+再调用dic——build 构建房源ID 与索引的词典
+最后使用model_build_bookid进行词向量的训练
+'''
 import tensorflow as  tf
 import collections
 import numpy  as np
-
-#----
 import batch_generate_bookid
 import batch_generate
+import pickle
 
 vocabulary_size = 200000
 #超参数配置
@@ -38,18 +44,18 @@ with graph.as_default():
 
 
 #模型训练
-num_steps = 500001
+num_steps = 1000
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     average_loss = 0
     for step in range(num_steps):
         print("STEP",step)
         batch_data,batch_labels = batch_generate_bookid.batch_generate(batch_size,num_skips,skip_window)
-        with open("./data/error.txt","w") as  f:
-            f.write("batch_data"+str(batch_data)+"\n")
-            f.write("batch_labels"+str(batch_labels)+"\n")
-        print("batch_data",batch_data[0])
-        print("batch_label",batch_labels[0])
+        # with open("./data/error.txt","w") as  f:
+        #     f.write("batch_data"+str(batch_data)+"\n")
+        #     f.write("batch_labels"+str(batch_labels)+"\n")
+        # print("batch_data",batch_data[0])
+        # print("batch_label",batch_labels[0])
         feed_dict = {train_dataset:batch_data,
                      train_labels:batch_labels}
         _,ave_loss = session.run([optimizer,loss],feed_dict=feed_dict)
@@ -60,6 +66,8 @@ with tf.Session(graph=graph) as session:
             print('Average losss at step %d:%f' % (step,average_loss / 100))
             average_loss = 0
     word2vec = normalized_embeddings.eval()
+    with open("./data/word2vec.txt","wb") as f:
+        pickle.dump(word2vec,f)
 
 '''
 distances = -word2vec[dictionary[u""]].reshape((1,-1)).dot(word2vec.T)

@@ -1,6 +1,5 @@
 import csv
-def prepare_raw_data(input,output):
-    length = 3000
+def prepare_raw_data(input,output,length=3000):
     count = 0
     csv_reader = open(input, 'r', encoding='utf-8')
     with open(output,"w") as f:
@@ -19,4 +18,4 @@ def prepare_raw_data(input,output):
     print( "Succeed")
 
 if __name__ == "__main__":
-    prepare_raw_data(input="./user_click_session.csv",output='./data/raw_lu_id_with_ordered_id.csv')
+    prepare_raw_data(input="./user_click_session.csv",output='./data/raw_lu_id_with_bookid.csv',length=3000)

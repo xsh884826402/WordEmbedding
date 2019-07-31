@@ -53,4 +53,3 @@ def batch_generate(batch_size,num_skips,skip_window):
         buf.append(data[data_index])
         data_index = (data_index + 1) % len(data)
     return batch,labels
-

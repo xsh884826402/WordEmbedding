@@ -17,7 +17,7 @@ def dic_build():
     dictionary = dict()
 
     for word, _ in count:
-        print(dictionary)
+        # print(dictionary)
         dictionary[word] = len(dictionary)
     # data是一维列表，将房源映射到index
     data = list()
@@ -59,6 +59,8 @@ def dic_build():
         pickle.dump(data,f)
     with open("./data/bookid_range.txt","wb") as f:
         pickle.dump(bookid_range,f)
+    with open("./data/dict_index_word.txt","wb") as f:
+        pickle.dump(reverse_dictionary,f)
     print("Succeed")
 if __name__ =="__main__":
     dic_build()
