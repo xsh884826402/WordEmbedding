@@ -7,13 +7,16 @@ def prepare_raw_data(input,output,length=3000):
         for line in csv_reader:
             line = line.strip().split(',')
             line = [s for s in line if s!="" ]
+            if len(line)>=5:
+                #这里待修改
+                f.write(" ".join(line)+' | ' + line[0] + '\n')
             # print(count,line,type(line),type(line[-1]))
-            if count >= length:
-                break
-            else:
-                if len(line)>=5:
-                    f.write(" ".join(line)+' | '+line[0]+'\n')
-                    count += 1
+            # if count >= length:
+            #     break
+            # else:
+            #     if len(line)>=5:
+            #         f.write(" ".join(line)+' | '+line[0]+'\n')
+            #         count += 1
 
     print( "Succeed")
 
