@@ -22,7 +22,7 @@ def batch_generate(batch_size,num_skips,skip_window):
     """
     global data_index
     global bookid_range_index
-    print("IN batch_generate",data_index)
+    # print("IN batch_generate",data_index)
     batch = np.ndarray(shape=(batch_size),dtype=np.int64)
     labels = np.ndarray(shape=(batch_size,1),dtype= np.int64)
 
@@ -44,7 +44,7 @@ def batch_generate(batch_size,num_skips,skip_window):
 
         bookid, min_index, max_index = bookid_range[bookid_range_index]
         #target label  at the center of the buffer
-        print("generate_bookid",i)
+        # print("generate_bookid",i)
         target = skip_window
         targets_to_avoid = [skip_window]
         for j in range(num_skips):

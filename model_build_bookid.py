@@ -44,12 +44,15 @@ with graph.as_default():
 
 
 #模型训练
-num_steps = 1000
+num_steps = 10000000000
 with tf.Session(graph=graph) as session:
     tf.global_variables_initializer().run()
     average_loss = 0
+    stop_count = 6
+    count = 0
+    flag = 0
     for step in range(num_steps):
-        print("STEP",step)
+        # print("STEP",step)
         batch_data,batch_labels = batch_generate_bookid.batch_generate(batch_size,num_skips,skip_window)
         # with open("./data/error.txt","w") as  f:
         #     f.write("batch_data"+str(batch_data)+"\n")
@@ -59,11 +62,23 @@ with tf.Session(graph=graph) as session:
         feed_dict = {train_dataset:batch_data,
                      train_labels:batch_labels}
         _,ave_loss = session.run([optimizer,loss],feed_dict=feed_dict)
-        print("DEbug_2")
+        # print("DEbug_2")
         average_loss += ave_loss
 
         if step % 100 == 0 and step >0:
             print('Average losss at step %d:%f' % (step,average_loss / 100))
+            print("flag",flag,"count",count)
+            if average_loss / 100 < 0.1:
+                if flag == 1:
+                    count += 1
+                    if count >= stop_count:
+                        break
+                else:
+                    flag = 1
+                    count += 1
+            else:
+                count = 0
+                flag = 0
             average_loss = 0
     word2vec = normalized_embeddings.eval()
     with open("./data/word2vec.txt","wb") as f:
