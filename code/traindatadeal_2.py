@@ -7,7 +7,7 @@ import pandas as pd
 from datetime import timedelta, datetime
 #yesterday = datetime.today() + timedelta(-1)
 todayy=datetime.today().strftime('%Y-%m-%d')
-aaa=pd.read_csv(f'/data1/embedding/sqldata/embsql{todayy}.csv',sep='\t',error_bad_lines=False)
+aaa=pd.read_csv(f'/data1/xushenghua/embedding/sqldata/embsql{todayy}.csv',sep='\t',error_bad_lines=False)
 
 bbb=[tuple(x) for x in aaa.values]
 record = {}
