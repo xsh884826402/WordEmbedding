@@ -5,11 +5,11 @@ def prepare_raw_data(input,output,length=3000):
     with open(output,"w") as f:
         # writer = csv.writer(f)
         for line in csv_reader:
-            line = line.strip().split(',')
+            line = line.strip().split(' ')
             line = [s for s in line if s!="" ]
             if len(line)>=5:
                 #这里待修改
-                f.write(" ".join(line)+' | ' + line[0] + '\n')
+                f.write(" ".join(line)+' | ' + line[-1] + '\n')
             # print(count,line,type(line),type(line[-1]))
             # if count >= length:
             #     break
