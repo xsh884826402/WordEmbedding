@@ -1,12 +1,12 @@
 import collections
 import data_load
 import pickle
-def dic_build():
+def dic_build(vocabulary_size = 350000):
     '''
     构建词典，和按顺序的全部语料。用pickle存储
     :return:
     '''
-    vocabulary_size = 200000
+
     count = [['unk',-1]]
     words_2D_list = data_load.load_w2c_textcn_dataset()
     words = []
