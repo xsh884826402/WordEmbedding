@@ -12,10 +12,10 @@ import batch_generate_bookid
 import batch_generate
 import pickle
 
-vocabulary_size = 200000
+vocabulary_size = 3500000
 #超参数配置
 batch_size = 129     #这里需要注意，要与你的skipWindows相匹配
-embedding_size = 128  # 生成向量维度.
+embedding_size = 64  # 生成向量维度.
 skip_window = 2       # 左右窗口.
 num_skips = 2        # 同一个keyword产生label的次数.实际上还要再加一个book-id
 num_sampled = 64      # 负样本抽样数.
