@@ -65,10 +65,10 @@ with tf.Session(graph=graph) as session:
         # print("DEbug_2")
         average_loss += ave_loss
 
-        if step % 100 == 0 and step >0:
-            print('Average losss at step %d:%f' % (step,average_loss / 100))
+        if step % 1000 == 0 and step >0:
+            print('Average losss at step %d:%f' % (step,average_loss / 1000))
             print("flag",flag,"count",count)
-            if average_loss / 100 < 0.1:
+            if average_loss / 1000 < 0.2:
                 if flag == 1:
                     count += 1
                     if count >= stop_count:
