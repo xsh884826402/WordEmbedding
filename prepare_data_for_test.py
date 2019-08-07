@@ -8,4 +8,5 @@ if __name__ =="__main__":
     with open("./data/item_vec_new.txt","wb") as f:
         for key in dic.keys():
             vec = word2vec[dic[key]].tolist()
+            vec = [str(i) for i in vec]
             f.write(str(key)+' '+",".join(vec)+'\n')
