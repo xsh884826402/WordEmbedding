@@ -32,5 +32,16 @@ for userid,luid,view_time,timesec,view_date in bbb:
 
 fw = open(f'/data1/xushenghua/embedding/traindata/traindata{todayy}.txt', 'w+')
 for userid in record:
-    fw.write(" ".join('%s' %id for id in (record[userid])) + "\n")
+    index = 0
+    while index<len(record[userid]):
+        userid_str = record[userid][index]
+        view_date_str = record[userid][index+1]
+        index += 2
+        luid_list = []
+        while record[userid][index] != '\n':
+            luid_list.append(record[userid][index])
+            index +=1
+        luid_str = (",".join([str(i) for i in luid_list]))
+        fw.write(userid_str +' '+view_date_str+' '+luid_str+'\n')
+        index += 1
 fw.close()
