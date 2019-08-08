@@ -78,15 +78,15 @@ def run_main(input_file, output_file):
     input_file = os.path.join(FILE_PATH, input_file)
     output_file = os.path.join(FILE_PATH, output_file)
 
-    with open('C:/Users/64610/Desktop/embedding/luid.txt', 'r') as file:
+    with open('./data/luid.txt', 'r') as file:
         itemlist = file.readlines()
     itemid = [x.strip() for x in itemlist]
-
+    item_vec = load_item_vec(input_file)
+    print(item_vec.keys()[0],type(item_vec.keys()[0]))
     for i in itemid:
-        print(i)
-        item_vec = load_item_vec(input_file)
+        print(i,type(i))
         cal_item_sim(item_vec, str(i), output_file)
 
 
 if __name__ == "__main__":
-        run_main("../data/item_vec_new.txt", "../data/sim_result_new.txt")
+        run_main("./data/item_vec_new.txt", ". /data/sim_result_new.txt")
