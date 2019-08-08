@@ -6,8 +6,11 @@ def prepare_raw_data(input,output,length=3000):
         # writer = csv.writer(f)
         for line in csv_reader:
             line = line.strip().split('\t')
+            print("line",line)
             temp_line = line[1].split(',')
-            temp_line.extend(line[2])
+            temp_line = [item[:-2] if item[-2:]==".0" else item for item in temp_line]
+            temp_line.append(line[2])
+            print("temp_line",temp_line)
             if len(temp_line)>=5:
                 #这里待修改
                 f.write(" ".join(temp_line[:-1])+' | ' + temp_line[-1] + '\n')
