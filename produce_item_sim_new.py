@@ -24,16 +24,18 @@ def load_item_vec(input_file):
     item_vec = {}
     fp = open(input_file)
     for line in fp:
+        # print("line",line)
         if linenum == 0:
             linenum += 1
             continue
         item = line.strip().split()
-        if len(item) <= 64:
-            continue
+        # if len(item) <= 64:
+        #     continue
         itemid = item[0]
+        vector = item[1].strip().split(',')
         if itemid == "</s>":
             continue
-        item_vec[itemid] = np.array([float(ele) for ele in item[1:]])
+        item_vec[itemid] = np.array([float(ele) for ele in vector])
     fp.close()
     return item_vec
 
@@ -82,11 +84,14 @@ def run_main(input_file, output_file):
         itemlist = file.readlines()
     itemid = [x.strip() for x in itemlist]
     item_vec = load_item_vec(input_file)
-    print(item_vec.keys()[0],type(item_vec.keys()[0]))
+    print('keys',item_vec.keys())
+    item_vec_keys = item_vec.keys()
+    # for key in item_vec_keys:
+    #     print("length",len(item_vec_keys),"key",key)
     for i in itemid:
         print(i,type(i))
         cal_item_sim(item_vec, str(i), output_file)
 
 
 if __name__ == "__main__":
-        run_main("./data/item_vec_new.txt", ". /data/sim_result_new.txt")
+        run_main("./data/item_vec_new.txt", "./data/sim_result_new.txt")
